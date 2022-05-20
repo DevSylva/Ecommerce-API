@@ -10,6 +10,7 @@ const authRoute = require("./routes/auth");
 
 dotenv.config();
 
+// mongodb connect
 mongoose
   .connect(process.env.MONGO_DB_URL)
   .then(() => console.log("DB connection successful!"))
@@ -19,7 +20,7 @@ mongoose
 
 app.use(express.json());
 
-// routes
+// routes endpoints
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
