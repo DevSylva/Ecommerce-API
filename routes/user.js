@@ -5,11 +5,12 @@ const {
   verifyTokenAndAdmin,
 } = require("../middleware/verifyToken");
 const User = require("../models/user");
+const CryptoJs = require("crypto-js");
 
-//UPDATE
+// User update Endpoint
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   if (req.body.password) {
-    req.body.password = CryptoJS.AES.encrypt(
+    req.body.password = CryptoJs.AES.encrypt(
       req.body.password,
       process.env.PASS_SECRET_KEY
     ).toString();
@@ -29,6 +30,8 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
+
+// delete user endpoint
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
@@ -38,6 +41,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 //GET USER
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -49,6 +53,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
@@ -62,6 +67,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 //GET USER STATS
 
